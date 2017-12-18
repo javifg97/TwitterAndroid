@@ -1,15 +1,16 @@
 package com.example.guille.actividad3;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.example.guille.milib.LoginFragment;
 import com.example.guille.milib.LoginFragmentListener;
 import com.example.guille.milib.RegisterFragment;
 import com.example.guille.milib.RegisterFragmentsListener;
+import com.google.firebase.database.DataSnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,16 +81,29 @@ class MainActivityEvents implements LoginFragmentListener, RegisterFragmentsList
     public void registerOK(boolean itsOk) {
         if (itsOk){
             //Hacer metodos cuando el registro esta bien
+            Intent intent=new Intent(mainActivity,SecondActivity.class);
+            mainActivity.startActivity(intent);
+            mainActivity.finish();
             Log.v("MAINAKAHFG","BIEN EL Regis");
         }
+        else{
 
+        }
     }
 
     @Override
     public void loginOK(boolean itsOk) {
         if (itsOk){
             //Hacer metodos cuando el login esta bien
+            Intent intent=new Intent(mainActivity,SecondActivity.class);
+            mainActivity.startActivity(intent);
+            mainActivity.finish();
             Log.v("MAINAKAHFG","BIEN EL LOGIN");
         }
+    }
+
+    @Override
+    public void ramaDescargada(String rama, DataSnapshot dataSnapshot) {
+
     }
 }
