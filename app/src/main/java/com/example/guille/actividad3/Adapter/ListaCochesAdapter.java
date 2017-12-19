@@ -34,8 +34,8 @@ public class ListaCochesAdapter extends RecyclerView.Adapter<CocheViewHolder> {
     public void onBindViewHolder(CocheViewHolder holder, int position) {
         //holder.textoMensaje.setText(coches.get(position).original);
         holder.tvfabricado.setText(coches.get(position).Fabricado+"");
-        holder.tvmarca.setText(coches.get(position).Marca);
-        holder.tvnombre.setText(coches.get(position).Nombre);
+        holder.tvmarca.setText(coches.get(position).Marca+"");
+        holder.tvnombre.setText(coches.get(position).Nombre+"");
         holder.tvlat.setText(coches.get(position).lat+"");
         holder.tvlon.setText(coches.get(position).lon+"");
     }

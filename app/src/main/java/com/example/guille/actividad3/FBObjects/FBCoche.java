@@ -17,7 +17,8 @@ public class FBCoche {
     public FBCoche(){
 
     }
-    public FBCoche(int Fabricado,String Marca,String Nombre,double lat,double lon){
+
+    public FBCoche(int Fabricado, String Marca, String Nombre, double lat, double lon){
 
         this.Fabricado=Fabricado;
         this.Marca=Marca;
