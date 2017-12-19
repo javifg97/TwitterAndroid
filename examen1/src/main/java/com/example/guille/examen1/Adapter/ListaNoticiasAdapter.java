@@ -2,6 +2,7 @@ package com.example.guille.examen1.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,23 @@ class NoticiasViewHolder extends RecyclerView.ViewHolder {
         tvtitulo=itemView.findViewById(R.id.tvtitulo);
         tvnoticia=itemView.findViewById(R.id.tvnoticia);
         imgnot=itemView.findViewById(R.id.imgnot);
+        NoticiasViewHolderEvents events=new NoticiasViewHolderEvents(this);
+        itemView.setOnClickListener(events);
+
     }
 
+}
+
+class NoticiasViewHolderEvents implements View.OnClickListener{
+
+    NoticiasViewHolder noticiasViewHolder;
+
+    public NoticiasViewHolderEvents(NoticiasViewHolder noticiasViewHolder){
+        this.noticiasViewHolder=noticiasViewHolder;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.v("NoticiasViewHolder", "Clicked");
+    }
 }

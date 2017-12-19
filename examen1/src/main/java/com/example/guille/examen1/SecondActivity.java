@@ -20,6 +20,7 @@ import java.util.Map;
 
 public class SecondActivity extends AppCompatActivity {
     ListaFragment listaFragmentNoticias;
+    ListaNoticiasAdapter listaNoticiasAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +72,8 @@ class SecondActivityEvents implements  FirebaseAdminListener{
         if(rama.equals("Noticias")){
             GenericTypeIndicator<ArrayList<FBNoticia>> indicator= new GenericTypeIndicator<ArrayList<FBNoticia>>(){};
             ArrayList<FBNoticia> noticias=dataSnapshot.getValue(indicator);
-            ListaNoticiasAdapter listaNoticiasAdapter= new ListaNoticiasAdapter(noticias,secondActivity);
-            secondActivity.listaFragmentNoticias.recyclerView.setAdapter(listaNoticiasAdapter);
+            secondActivity.listaNoticiasAdapter= new ListaNoticiasAdapter(noticias,secondActivity);
+            secondActivity.listaFragmentNoticias.recyclerView.setAdapter(secondActivity.listaNoticiasAdapter);
         }
 
     }
