@@ -8,13 +8,17 @@ public class FBNoticia {
 
     public String Titulo;
     public String Noticia;
+    public String imgurl;
+
+
 
     public FBNoticia(){
 
     }
 
-    public FBNoticia(String titulo,String noticia){
+    public FBNoticia(String titulo,String noticia,String imgurl){
         this.Titulo=titulo;
         this.Noticia=noticia;
+        this.imgurl=imgurl;
     }
 }

@@ -1,13 +1,16 @@
 package com.example.guille.examen1.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guille.examen1.FBObjects.FBNoticia;
 import com.example.guille.examen1.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -17,9 +20,11 @@ import java.util.ArrayList;
 
 public class ListaNoticiasAdapter extends RecyclerView.Adapter<NoticiasViewHolder> {
     private ArrayList<FBNoticia> noticias;
+    private Context mContext;
 
-    public ListaNoticiasAdapter(ArrayList<FBNoticia> noticias) {
+    public ListaNoticiasAdapter(ArrayList<FBNoticia> noticias, Context mContext) {
         this.noticias=noticias;
+        this.mContext=mContext;
     }
 
     @Override
@@ -32,6 +37,7 @@ public class ListaNoticiasAdapter extends RecyclerView.Adapter<NoticiasViewHolde
     public void onBindViewHolder(NoticiasViewHolder holder, int position) {
         holder.tvtitulo.setText(noticias.get(position).Titulo+"");
         holder.tvnoticia.setText(noticias.get(position).Noticia+"");
+        Picasso.with(mContext).load(noticias.get(position).imgurl).into(holder.imgnot);
 
     }
 
@@ -45,11 +51,13 @@ class NoticiasViewHolder extends RecyclerView.ViewHolder {
 
     public TextView tvtitulo;
     public TextView tvnoticia;
+    public ImageView imgnot;
 
     public NoticiasViewHolder(View itemView){
         super(itemView);
         tvtitulo=itemView.findViewById(R.id.tvtitulo);
         tvnoticia=itemView.findViewById(R.id.tvnoticia);
+        imgnot=itemView.findViewById(R.id.imgnot);
     }
 
 }

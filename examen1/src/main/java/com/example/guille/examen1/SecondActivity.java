@@ -71,7 +71,7 @@ class SecondActivityEvents implements  FirebaseAdminListener{
         if(rama.equals("Noticias")){
             GenericTypeIndicator<ArrayList<FBNoticia>> indicator= new GenericTypeIndicator<ArrayList<FBNoticia>>(){};
             ArrayList<FBNoticia> noticias=dataSnapshot.getValue(indicator);
-            ListaNoticiasAdapter listaNoticiasAdapter= new ListaNoticiasAdapter(noticias);
+            ListaNoticiasAdapter listaNoticiasAdapter= new ListaNoticiasAdapter(noticias,secondActivity);
             secondActivity.listaFragmentNoticias.recyclerView.setAdapter(listaNoticiasAdapter);
         }
 
