@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.guille.examen1.FBObjects.FBNoticia;
 import com.example.guille.examen1.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by guille on 19/12/17.
@@ -14,6 +17,10 @@ import com.example.guille.examen1.R;
 
 public class ListaNoticiasAdapter extends RecyclerView.Adapter<NoticiasViewHolder> {
     private ArrayList<FBNoticia> noticias;
+
+    public ListaNoticiasAdapter(ArrayList<FBNoticia> noticias) {
+        this.noticias=noticias;
+    }
 
     @Override
     public NoticiasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

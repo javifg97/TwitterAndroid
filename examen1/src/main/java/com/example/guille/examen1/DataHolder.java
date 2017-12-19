@@ -1,9 +1,11 @@
 package com.example.guille.examen1;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Created by guille on 18/12/17.
  */
-
+@IgnoreExtraProperties
 public class DataHolder {
     public static DataHolder instances = new DataHolder();
 

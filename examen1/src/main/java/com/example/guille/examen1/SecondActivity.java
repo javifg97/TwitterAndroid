@@ -9,6 +9,8 @@ import com.example.guille.actividad3.Adapter.ListaMensajesAdapter;
 import com.example.guille.actividad3.FBObjects.FBCoche;
 import com.example.guille.actividad3.FBObjects.Mensajes;
 */
+import com.example.guille.examen1.Adapter.ListaNoticiasAdapter;
+import com.example.guille.examen1.FBObjects.FBNoticia;
 import com.example.guille.milib.ListaFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class SecondActivity extends AppCompatActivity {
-    ListaFragment listaFragmentMensajes, listaFragmentCoches;
+    ListaFragment listaFragmentNoticias;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +30,16 @@ public class SecondActivity extends AppCompatActivity {
         /*listaFragmentMensajes =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListMensajes);
         listaFragmentCoches =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListCoche);
         */
-        //selecciona la rama a descargar
-        DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages");
-        DataHolder.instances.firebaseAdmin.descargarYObservarRama("Coches");
+        listaFragmentNoticias =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListNoticias);
 
-       /* ArrayList<String> mdatos=new ArrayList<>();
+        //selecciona la rama a descargar
+        //DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages");
+        //DataHolder.instances.firebaseAdmin.descargarYObservarRama("Coches");
+        DataHolder.instances.firebaseAdmin.descargarYObservarRama("Noticias");
+
+
+
+        /*ArrayList<String> mdatos=new ArrayList<>();
         mdatos.add("Mensaje 1");
         ListaMensajesAdapter listaMensajesAdapter=new ListaMensajesAdapter(mdatos);
         listaFragment.recyclerView.setAdapter(listaMensajesAdapter);*/
@@ -58,20 +65,15 @@ class SecondActivityEvents implements  FirebaseAdminListener{
 
     @Override
     public void ramaDescargada(String rama, DataSnapshot dataSnapshot) {
-        /* Log.v("SecondActivity", rama+"------- "+dataSnapshot);
+        Log.v("SecondActivity", rama+"------- "+dataSnapshot);
         //Mensajes2 mensajes2=dataSnapshot.getValue(Mensajes2.class);
         // Log.v("SecondActivity", "Mensaje:  "+mensajes2.msgs2);
-        if(rama.equals("messages")){
-            GenericTypeIndicator<Map<String,Mensajes>> indicator= new GenericTypeIndicator<Map<String,Mensajes>>(){};
-            Map<String,Mensajes> msgs=dataSnapshot.getValue(indicator);
-            ListaMensajesAdapter listaMensajesAdapter= new ListaMensajesAdapter(new ArrayList<Mensajes>(msgs.values()));
-            secondActivity.listaFragmentMensajes.recyclerView.setAdapter(listaMensajesAdapter);
-        }else if(rama.equals("Coches")){
-            GenericTypeIndicator<ArrayList<FBCoche>> indicator= new GenericTypeIndicator<ArrayList<FBCoche>>(){};
-            ArrayList<FBCoche> coches=dataSnapshot.getValue(indicator);
-            ListaCochesAdapter listaCochesAdapter= new ListaCochesAdapter(coches);
-            secondActivity.listaFragmentCoches.recyclerView.setAdapter(listaCochesAdapter);
-        }*/
+        if(rama.equals("Noticias")){
+            GenericTypeIndicator<ArrayList<FBNoticia>> indicator= new GenericTypeIndicator<ArrayList<FBNoticia>>(){};
+            ArrayList<FBNoticia> noticias=dataSnapshot.getValue(indicator);
+            ListaNoticiasAdapter listaNoticiasAdapter= new ListaNoticiasAdapter(noticias);
+            secondActivity.listaFragmentNoticias.recyclerView.setAdapter(listaNoticiasAdapter);
+        }
 
     }
 }
