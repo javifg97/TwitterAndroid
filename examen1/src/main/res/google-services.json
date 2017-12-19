@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "923450261518",
+    "firebase_url": "https://actividad3-8095b.firebaseio.com",
+    "project_id": "actividad3-8095b",
+    "storage_bucket": "actividad3-8095b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923450261518:android:27331541551e46e6",
+        "android_client_info": {
+          "package_name": "com.example.guille.actividad3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923450261518-eiadsedm44hh1ka5lugngs4g3jikqc7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFTvCEGJX9DrEK-5fyvyqZCtcA2jeesWY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923450261518:android:625b0c8efdc2b220",
+        "android_client_info": {
+          "package_name": "com.example.guille.examen1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923450261518-eiadsedm44hh1ka5lugngs4g3jikqc7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFTvCEGJX9DrEK-5fyvyqZCtcA2jeesWY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
