@@ -10,6 +10,8 @@ import com.example.guille.actividad3.FBObjects.FBCoche;
 import com.example.guille.actividad3.FBObjects.Mensajes;
 */
 import com.example.guille.examen1.Adapter.ListaNoticiasAdapter;
+import com.example.guille.examen1.Adapter.ListaNoticiasAdapterListener;
+import com.example.guille.examen1.Adapter.NoticiasViewHolder;
 import com.example.guille.examen1.FBObjects.FBNoticia;
 import com.example.guille.milib.ListaFragment;
 import com.google.firebase.database.DataSnapshot;
@@ -47,7 +49,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 }
 
-class SecondActivityEvents implements  FirebaseAdminListener{
+class SecondActivityEvents implements  FirebaseAdminListener,ListaNoticiasAdapterListener{
     SecondActivity secondActivity;
 
     public SecondActivityEvents(SecondActivity secondActivity){
@@ -74,7 +76,14 @@ class SecondActivityEvents implements  FirebaseAdminListener{
             ArrayList<FBNoticia> noticias=dataSnapshot.getValue(indicator);
             secondActivity.listaNoticiasAdapter= new ListaNoticiasAdapter(noticias,secondActivity);
             secondActivity.listaFragmentNoticias.recyclerView.setAdapter(secondActivity.listaNoticiasAdapter);
+            secondActivity.listaNoticiasAdapter.setListener(this);
         }
+
+    }
+
+    @Override
+    public void listaNoticiasAdapterCeldaClicked(NoticiasViewHolder celdaHolder) {
+        Log.v("SecondActivity", "Celda presionada:  "+celdaHolder.getAdapterPosition());
 
     }
 }

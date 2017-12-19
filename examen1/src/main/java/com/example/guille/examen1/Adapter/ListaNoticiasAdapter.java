@@ -22,10 +22,15 @@ import java.util.ArrayList;
 public class ListaNoticiasAdapter extends RecyclerView.Adapter<NoticiasViewHolder> {
     private ArrayList<FBNoticia> noticias;
     private Context mContext;
+    private ListaNoticiasAdapterListener listener;
 
     public ListaNoticiasAdapter(ArrayList<FBNoticia> noticias, Context mContext) {
         this.noticias=noticias;
         this.mContext=mContext;
+    }
+
+    public void setListener(ListaNoticiasAdapterListener listener){
+        this.listener=listener;
     }
 
     @Override
@@ -39,6 +44,7 @@ public class ListaNoticiasAdapter extends RecyclerView.Adapter<NoticiasViewHolde
         holder.tvtitulo.setText(noticias.get(position).Titulo+"");
         holder.tvnoticia.setText(noticias.get(position).Noticia+"");
         Picasso.with(mContext).load(noticias.get(position).imgurl).into(holder.imgnot);
+        holder.setListener(this.listener);
 
     }
 
@@ -48,34 +54,4 @@ public class ListaNoticiasAdapter extends RecyclerView.Adapter<NoticiasViewHolde
 }
 
 
-class NoticiasViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView tvtitulo;
-    public TextView tvnoticia;
-    public ImageView imgnot;
-
-    public NoticiasViewHolder(View itemView){
-        super(itemView);
-        tvtitulo=itemView.findViewById(R.id.tvtitulo);
-        tvnoticia=itemView.findViewById(R.id.tvnoticia);
-        imgnot=itemView.findViewById(R.id.imgnot);
-        NoticiasViewHolderEvents events=new NoticiasViewHolderEvents(this);
-        itemView.setOnClickListener(events);
-
-    }
-
-}
-
-class NoticiasViewHolderEvents implements View.OnClickListener{
-
-    NoticiasViewHolder noticiasViewHolder;
-
-    public NoticiasViewHolderEvents(NoticiasViewHolder noticiasViewHolder){
-        this.noticiasViewHolder=noticiasViewHolder;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Log.v("NoticiasViewHolder", "Clicked");
-    }
-}
