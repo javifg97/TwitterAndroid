@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListMensajesFragment extends Fragment {
+public class ListaFragment extends Fragment {
 
     public RecyclerView recyclerView;
 
-    public ListMensajesFragment() {
+    public ListaFragment() {
         // Required empty public constructor
     }
 
