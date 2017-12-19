@@ -8,7 +8,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class FBCoche {
 
-    public int Fabricado;
+    public String Fabricado;
     public String Marca;
     public String Nombre;
     public double lat;
@@ -18,7 +18,7 @@ public class FBCoche {
 
     }
 
-    public FBCoche(int Fabricado, String Marca, String Nombre, double lat, double lon){
+    public FBCoche(String Fabricado, String Marca, String Nombre, double lat, double lon){
 
         this.Fabricado=Fabricado;
         this.Marca=Marca;
