@@ -18,8 +18,11 @@ public class SecondActivity extends AppCompatActivity {
         DataHolder.instances.firebaseAdmin.setListener(events);
         listMensajesFragment=(ListMensajesFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListMensajes);
         //selecciona la rama a descargar
-        DataHolder.instances.firebaseAdmin.descargarYObservarRama("");
-
+        DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages/msg1");
+       /* ArrayList<String> mdatos=new ArrayList<>();
+        mdatos.add("Mensaje 1");
+        ListaMensajesAdapter listaMensajesAdapter=new ListaMensajesAdapter(mdatos);
+        listMensajesFragment.recyclerView.setAdapter(listaMensajesAdapter);*/
     }
 }
 
