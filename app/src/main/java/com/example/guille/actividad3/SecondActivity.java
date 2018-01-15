@@ -10,6 +10,12 @@ import com.example.guille.actividad3.Adapter.ListaMensajesAdapter;
 import com.example.guille.actividad3.FBObjects.FBCoche;
 import com.example.guille.actividad3.FBObjects.Mensajes;
 import com.example.guille.milib.ListaFragment;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.GenericTypeIndicator;
 
@@ -17,8 +23,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class SecondActivity extends AppCompatActivity {
-    ListaFragment listaFragmentMensajes, listaFragmentCoches;
+    ListaFragment listaFragmentCoches;
+    //ListaFragment listaFragmentMensajes;
     ListaCochesAdapter listaCochesAdapter;
+    SupportMapFragment mapFragment;
+    ArrayList<FBCoche> coches;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,16 +35,18 @@ public class SecondActivity extends AppCompatActivity {
         //Log.v("SecondActivity", "-------- email: "+DataHolder.instances.firebaseAdmin.user.getEmail());
         SecondActivityEvents events= new SecondActivityEvents(this);
         DataHolder.instances.firebaseAdmin.setListener(events);
-        listaFragmentMensajes =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListMensajes);
+        //listaFragmentMensajes =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListMensajes);
         listaFragmentCoches =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListCoche);
+         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMapa);
+        mapFragment.getMapAsync(events);
 
         //selecciona la rama a descargar
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.hide(listaFragmentMensajes);
+        //transaction.hide(listaFragmentMensajes);
         transaction.hide(listaFragmentCoches);
+        transaction.show(mapFragment);
         transaction.commit();
-        DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages");
-        DataHolder.instances.firebaseAdmin.descargarYObservarRama("Coches");
+        //DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages");
 
        /* ArrayList<String> mdatos=new ArrayList<>();
         mdatos.add("Mensaje 1");
@@ -44,9 +55,9 @@ public class SecondActivity extends AppCompatActivity {
     }
 }
 
-class SecondActivityEvents implements  FirebaseAdminListener{
+class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback {
     SecondActivity secondActivity;
-
+    GoogleMap mMap;
     public SecondActivityEvents(SecondActivity secondActivity){
         this.secondActivity=secondActivity;
 
@@ -67,16 +78,32 @@ class SecondActivityEvents implements  FirebaseAdminListener{
         //Mensajes2 mensajes2=dataSnapshot.getValue(Mensajes2.class);
        // Log.v("SecondActivity", "Mensaje:  "+mensajes2.msgs2);
         if(rama.equals("messages")){
-            GenericTypeIndicator<Map<String,Mensajes>> indicator= new GenericTypeIndicator<Map<String,Mensajes>>(){};
+            /*GenericTypeIndicator<Map<String,Mensajes>> indicator= new GenericTypeIndicator<Map<String,Mensajes>>(){};
             Map<String,Mensajes> msgs=dataSnapshot.getValue(indicator);
             ListaMensajesAdapter listaMensajesAdapter= new ListaMensajesAdapter(new ArrayList<Mensajes>(msgs.values()));
             secondActivity.listaFragmentMensajes.recyclerView.setAdapter(listaMensajesAdapter);
+            FragmentTransaction transaction= secondActivity.getSupportFragmentManager().beginTransaction();
+            transaction.remove(secondActivity.listaFragmentMensajes);
+            transaction.commit();*/
         }else if(rama.equals("Coches")){
             GenericTypeIndicator<ArrayList<FBCoche>> indicator= new GenericTypeIndicator<ArrayList<FBCoche>>(){};
-            ArrayList<FBCoche> coches=dataSnapshot.getValue(indicator);
-            ListaCochesAdapter listaCochesAdapter= new ListaCochesAdapter(coches);
-            secondActivity.listaFragmentCoches.recyclerView.setAdapter(listaCochesAdapter);
+            secondActivity.coches=dataSnapshot.getValue(indicator);
+            secondActivity.listaCochesAdapter= new ListaCochesAdapter(secondActivity.coches);
+            secondActivity.listaFragmentCoches.recyclerView.setAdapter(secondActivity.listaCochesAdapter);
+            //secondActivity.listaCochesAdapter.setListener(this);
         }
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        DataHolder.instances.firebaseAdmin.descargarYObservarRama("Coches");
 
     }
 }
