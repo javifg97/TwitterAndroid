@@ -1,6 +1,7 @@
 package com.example.guille.actividad3;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 
 public class SecondActivity extends AppCompatActivity {
     ListaFragment listaFragmentMensajes, listaFragmentCoches;
+    ListaCochesAdapter listaCochesAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,10 @@ public class SecondActivity extends AppCompatActivity {
         listaFragmentCoches =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListCoche);
 
         //selecciona la rama a descargar
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(listaFragmentMensajes);
+        transaction.hide(listaFragmentCoches);
+        transaction.commit();
         DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages");
         DataHolder.instances.firebaseAdmin.descargarYObservarRama("Coches");
 
