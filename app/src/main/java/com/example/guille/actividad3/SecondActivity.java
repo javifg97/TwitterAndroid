@@ -14,9 +14,11 @@ import com.example.guille.actividad3.FBObjects.Mensajes;
 import com.example.guille.milib.ListaFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -56,7 +58,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 }
 
-class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback, ListaCochesAdapterListener {
+class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback, ListaCochesAdapterListener, GoogleMap.OnMarkerClickListener{
     SecondActivity secondActivity;
     GoogleMap mMap;
     ArrayList<FBCoche> coches;
@@ -108,7 +110,11 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
             markerOptions.position(cochePos);
             markerOptions.title(cocheTemp.Nombre);
             if (mMap!=null){
-                mMap.addMarker(markerOptions);
+                Marker marker= mMap.addMarker(markerOptions);
+                marker.setTag(cocheTemp);
+                cocheTemp.setMarker(marker);
+                if(i==0)mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cochePos, 8));
+
 
             }
         }
@@ -117,7 +123,7 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        mMap.setOnMarkerClickListener(this);
         // Add a marker in Sydney and move the camera
         /*LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -130,5 +136,13 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
     public void listaCochesAdapterCeldaClicked(CocheViewHolder celdaHolder) {
         Log.v("SecondActivity", "Celda presionada:  "+celdaHolder.getAdapterPosition());
 
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        FBCoche coche = (FBCoche) marker.getTag();
+        Log.v("SecondActivity", "PIN presionada:  "+coche.Nombre);
+
+        return false;
     }
 }

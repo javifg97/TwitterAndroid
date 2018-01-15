@@ -1,5 +1,6 @@
 package com.example.guille.actividad3.FBObjects;
 
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
@@ -13,6 +14,17 @@ public class FBCoche {
     public String Nombre;
     public double lat;
     public double lon;
+
+    private Marker marker=null;
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
+
 
     public FBCoche(){
 
