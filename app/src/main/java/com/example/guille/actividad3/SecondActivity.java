@@ -11,6 +11,7 @@ import com.example.guille.actividad3.Adapter.ListaCochesAdapterListener;
 import com.example.guille.actividad3.Adapter.ListaMensajesAdapter;
 import com.example.guille.actividad3.FBObjects.FBCoche;
 import com.example.guille.actividad3.FBObjects.Mensajes;
+import com.example.guille.milib.GPSAdmin.GPSTracker;
 import com.example.guille.milib.ListaFragment;
 import com.example.guille.milib.MapDetailFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -58,6 +59,16 @@ public class SecondActivity extends AppCompatActivity {
         transaction.hide(mapDetailFragment);
         transaction.show(mapFragment);
         transaction.commit();
+
+        GPSTracker gpsTracker=new GPSTracker(this);
+        if (gpsTracker.canGetLocation()){
+            Log.v("SecondActivity", "GPSTracker lat:  "+gpsTracker.getLatitude()+" GPSTracker lon:  "+gpsTracker.getLongitude());
+
+
+        }else{
+            gpsTracker.showSettingsAlert();
+
+        }
         //DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages");
 
        /* ArrayList<String> mdatos=new ArrayList<>();
