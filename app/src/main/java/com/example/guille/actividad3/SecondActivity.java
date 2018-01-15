@@ -12,6 +12,7 @@ import com.example.guille.actividad3.Adapter.ListaMensajesAdapter;
 import com.example.guille.actividad3.FBObjects.FBCoche;
 import com.example.guille.actividad3.FBObjects.Mensajes;
 import com.example.guille.milib.ListaFragment;
+import com.example.guille.milib.MapDetailFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -31,6 +32,11 @@ public class SecondActivity extends AppCompatActivity {
     //ListaFragment listaFragmentMensajes;
     ListaCochesAdapter listaCochesAdapter;
     SupportMapFragment mapFragment;
+    MapDetailFragment mapDetailFragment;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +48,14 @@ public class SecondActivity extends AppCompatActivity {
         listaFragmentCoches =(ListaFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentListCoche);
          mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMapa);
         mapFragment.getMapAsync(events);
+        mapDetailFragment=(MapDetailFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentMapDetails);
+
 
         //selecciona la rama a descargar
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //transaction.hide(listaFragmentMensajes);
         transaction.hide(listaFragmentCoches);
+        transaction.hide(mapDetailFragment);
         transaction.show(mapFragment);
         transaction.commit();
         //DataHolder.instances.firebaseAdmin.descargarYObservarRama("messages");
@@ -91,6 +100,7 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
             transaction.remove(secondActivity.listaFragmentMensajes);
             transaction.commit();*/
         }else if(rama.equals("Coches")){
+            quitarViejosPines();
             GenericTypeIndicator<ArrayList<FBCoche>> indicator= new GenericTypeIndicator<ArrayList<FBCoche>>(){};
             coches=dataSnapshot.getValue(indicator);
             secondActivity.listaCochesAdapter= new ListaCochesAdapter(coches);
@@ -101,10 +111,25 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
         }
 
     }
+    public void quitarViejosPines(){
+        if (coches != null) {
+            for (int i=0;i<coches.size();i++){
+                FBCoche cocheTemp=coches.get(i);
+                if (cocheTemp.getMarker()!=null){
+                    cocheTemp.getMarker().remove();
+                }
 
+
+            }
+
+        }
+
+
+        }
     public void agregarPinesCoches(){
         for (int i=0;i<coches.size();i++){
             FBCoche cocheTemp=coches.get(i);
+            Log.v("SecondActivity", "PIN presionada:  "+cocheTemp.getMarker());
             LatLng cochePos = new LatLng(cocheTemp.lat, cocheTemp.lon);
             MarkerOptions markerOptions= new MarkerOptions();
             markerOptions.position(cochePos);
@@ -140,8 +165,15 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+
         FBCoche coche = (FBCoche) marker.getTag();
         Log.v("SecondActivity", "PIN presionada:  "+coche.Nombre);
+        secondActivity.mapDetailFragment.txtNom.setText(coche.Nombre);
+        secondActivity.mapDetailFragment.txtFabricado.setText(coche.Fabricado+"");
+        secondActivity.mapDetailFragment.txtMarca.setText(coche.Marca);
+        FragmentTransaction transaction = secondActivity.getSupportFragmentManager().beginTransaction();
+        transaction.show(secondActivity.mapDetailFragment);
+        transaction.commit();
 
         return false;
     }
