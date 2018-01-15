@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.guille.actividad3.Adapter.CocheViewHolder;
 import com.example.guille.actividad3.Adapter.ListaCochesAdapter;
+import com.example.guille.actividad3.Adapter.ListaCochesAdapterListener;
 import com.example.guille.actividad3.Adapter.ListaMensajesAdapter;
 import com.example.guille.actividad3.FBObjects.FBCoche;
 import com.example.guille.actividad3.FBObjects.Mensajes;
@@ -27,7 +29,6 @@ public class SecondActivity extends AppCompatActivity {
     //ListaFragment listaFragmentMensajes;
     ListaCochesAdapter listaCochesAdapter;
     SupportMapFragment mapFragment;
-    ArrayList<FBCoche> coches;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +56,11 @@ public class SecondActivity extends AppCompatActivity {
     }
 }
 
-class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback {
+class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback, ListaCochesAdapterListener {
     SecondActivity secondActivity;
     GoogleMap mMap;
+    ArrayList<FBCoche> coches;
+
     public SecondActivityEvents(SecondActivity secondActivity){
         this.secondActivity=secondActivity;
 
@@ -87,12 +90,28 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
             transaction.commit();*/
         }else if(rama.equals("Coches")){
             GenericTypeIndicator<ArrayList<FBCoche>> indicator= new GenericTypeIndicator<ArrayList<FBCoche>>(){};
-            secondActivity.coches=dataSnapshot.getValue(indicator);
-            secondActivity.listaCochesAdapter= new ListaCochesAdapter(secondActivity.coches);
+            coches=dataSnapshot.getValue(indicator);
+            secondActivity.listaCochesAdapter= new ListaCochesAdapter(coches);
             secondActivity.listaFragmentCoches.recyclerView.setAdapter(secondActivity.listaCochesAdapter);
-            //secondActivity.listaCochesAdapter.setListener(this);
+            secondActivity.listaCochesAdapter.setListener(this);
+            agregarPinesCoches();
+
         }
 
+    }
+
+    public void agregarPinesCoches(){
+        for (int i=0;i<coches.size();i++){
+            FBCoche cocheTemp=coches.get(i);
+            LatLng cochePos = new LatLng(cocheTemp.lat, cocheTemp.lon);
+            MarkerOptions markerOptions= new MarkerOptions();
+            markerOptions.position(cochePos);
+            markerOptions.title(cocheTemp.Nombre);
+            if (mMap!=null){
+                mMap.addMarker(markerOptions);
+
+            }
+        }
     }
 
     @Override
@@ -100,10 +119,16 @@ class SecondActivityEvents implements  FirebaseAdminListener, OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        /*LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
         DataHolder.instances.firebaseAdmin.descargarYObservarRama("Coches");
+
+    }
+
+    @Override
+    public void listaCochesAdapterCeldaClicked(CocheViewHolder celdaHolder) {
+        Log.v("SecondActivity", "Celda presionada:  "+celdaHolder.getAdapterPosition());
 
     }
 }

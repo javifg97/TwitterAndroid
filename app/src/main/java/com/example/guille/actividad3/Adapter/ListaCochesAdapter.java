@@ -2,6 +2,7 @@ package com.example.guille.actividad3.Adapter;
 
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,15 @@ import java.util.ArrayList;
 
 public class ListaCochesAdapter extends RecyclerView.Adapter<CocheViewHolder> {
     private ArrayList<FBCoche> coches;
+    private ListaCochesAdapterListener listener;
+
 
     public ListaCochesAdapter(ArrayList<FBCoche> coches) {
         this.coches = coches;
+    }
+
+    public void setListener(ListaCochesAdapterListener listener){
+        this.listener=listener;
     }
 
     @Override
@@ -39,31 +46,14 @@ public class ListaCochesAdapter extends RecyclerView.Adapter<CocheViewHolder> {
         holder.tvnombre.setText(coches.get(position).Nombre+"");
         holder.tvlat.setText(coches.get(position).lat+"");
         holder.tvlon.setText(coches.get(position).lon+"");
+        holder.setListener(this.listener);
+
     }
 
     @Override
     public int getItemCount() {
         return coches.size();
     }
-}
-//guarda en cada momento que se crea la celda de forma momentanea los datos
-class CocheViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView tvfabricado;
-    public TextView tvmarca;
-    public TextView tvnombre;
-    public TextView tvlat;
-    public TextView tvlon;
-
-
-
-    public CocheViewHolder(View itemView){
-        super(itemView);
-        tvfabricado=itemView.findViewById(R.id.tvfabricado);
-        tvmarca=itemView.findViewById(R.id.tvmarca);
-        tvnombre=itemView.findViewById(R.id.tvnombre);
-        tvlat=itemView.findViewById(R.id.tvlat);
-        tvlon=itemView.findViewById(R.id.tvlon);
-    }
 
 }
