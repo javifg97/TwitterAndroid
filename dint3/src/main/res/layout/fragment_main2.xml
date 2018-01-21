@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.guille.dint3.Main2ActivityFragment"
-    tools:showIn="@layout/activity_main2">
+    tools:showIn="@layout/activity_main2"
+    style="@style/Temazo1">
 
 </android.support.constraint.ConstraintLayout>

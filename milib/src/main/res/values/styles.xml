@@ -24,7 +24,7 @@
     </style>
 
     <style name="Temazo2_1" parent="Temazo2">
-        <item name="android:background">@color/aqua</item>
+        <item name="android:background">@color/olive</item>
 
     </style>
 
@@ -34,7 +34,7 @@
     </style>
 
     <style name="Temazo3_1" parent="Temazo3">
-        <item name="android:background">@color/aqua</item>
+        <item name="android:background">@color/yellow</item>
 
     </style>
 
