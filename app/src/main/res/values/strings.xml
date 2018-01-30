@@ -3,4 +3,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="facebook_app_id" translatable="false">143153709693280</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb143153709693280</string>
+
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">vU3b0XygwKfIRcKhySxYvHxiD</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">li9VxrSswiMzM85WErCA1V5Y9qC8u8U338AUd7e5JtyGjEbff4</string>
+
 </resources>

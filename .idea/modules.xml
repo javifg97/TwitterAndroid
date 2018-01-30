@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Actividad3.iml" filepath="$PROJECT_DIR$/Actividad3.iml" />
+      <module fileurl="file://C:\Users\javier.fernandez3\AndroidStudioProjects\TwitterAndroid\Actividad3.iml" filepath="C:\Users\javier.fernandez3\AndroidStudioProjects\TwitterAndroid\Actividad3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TwitterAndroid.iml" filepath="$PROJECT_DIR$/.idea/TwitterAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dint3/dint3.iml" filepath="$PROJECT_DIR$/dint3/dint3.iml" />
       <module fileurl="file://$PROJECT_DIR$/examen1/examen1.iml" filepath="$PROJECT_DIR$/examen1/examen1.iml" />
